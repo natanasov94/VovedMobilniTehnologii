@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.example.vmt.company.view.CompanyViewHolder;
 
-public class CompanyOnClickListener implements View.OnClickListener{
+public class CompanyOnClickListener implements View.OnClickListener {
 
     CompanyViewHolder holder;
 

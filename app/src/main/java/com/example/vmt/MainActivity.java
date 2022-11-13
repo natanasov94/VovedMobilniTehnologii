@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.vmt.company.add.AddCompany;
 import com.example.vmt.company.view.CompanyViewAdapter;
+import com.example.vmt.listeners.TransitionButtonOnClickListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        populateCompanyView();
+        FloatingActionButton addCompanyButton = findViewById(R.id.addCompany);
+        addCompanyButton.setOnClickListener(new TransitionButtonOnClickListener(this, AddCompany.class));
+    }
+
+    private void populateCompanyView() {
         this.companyView = findViewById(R.id.companyView);
         CompanyViewAdapter viewAdapter = new CompanyViewAdapter(this, null);
         this.companyView.setAdapter(viewAdapter);
