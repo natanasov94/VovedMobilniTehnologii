@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">VMT</string>
+    <string-array name="categories">
+        <item>Servisi</item>
+        <item>Zabava</item>
+        <item>Industrija</item>
+        <item>Edukacija</item>
+    </string-array>
 </resources>
