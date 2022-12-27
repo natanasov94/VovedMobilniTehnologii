@@ -49,6 +49,10 @@ public class Company {
         return site;
     }
 
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
+    }
+
     public JSONObject toJsonObject() throws JSONException {
         JSONObject companyJsonObject = new JSONObject();
         companyJsonObject.put("logoPath", logoPath);

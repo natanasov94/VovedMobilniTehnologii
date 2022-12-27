@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeCompanies() throws JSONException {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.clear();
+//        editor.apply();
         if (COMPANIES.getCompanyCategories().isEmpty()) {
             // If company categories is empty, load from memory
             COMPANIES.loadFromMemory(sharedPreferences);

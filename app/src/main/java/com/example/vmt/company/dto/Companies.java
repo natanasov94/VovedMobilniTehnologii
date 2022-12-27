@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Companies {
 
+    public String LOGOS_FOLDER = "companyLogos";
+
     private List<CompanyCategory> companyCategories = new ArrayList<>();
 
     public JSONObject toJsonObject() throws JSONException {

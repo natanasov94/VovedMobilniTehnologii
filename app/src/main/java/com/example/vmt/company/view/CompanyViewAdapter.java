@@ -1,11 +1,10 @@
 package com.example.vmt.company.view;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.vmt.MainActivity;
 import com.example.vmt.R;
 import com.example.vmt.company.dto.Company;
 
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
 
     Context context;
     private List<Company> companyList;
 
-    public CompanyViewAdapter(Context context, List<Company> companyList){
+    public CompanyViewAdapter(Context context, List<Company> companyList) {
         this.context = context;
         this.companyList = companyList;
     }
@@ -35,7 +39,7 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
     @Override
     public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.company,parent,false);
+        View view = inflater.inflate(R.layout.company, parent, false);
         return new CompanyViewHolder(view);
     }
 
@@ -43,8 +47,7 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         Company company = companyList.get(position);
-        Log.i("Logo url",company.getLogoPath());
-        new DownloadImageTask(holder.getCompanyLogo()).execute(company.getLogoPath());
+        loadLogo(company, holder.getCompanyLogo());
         holder.getCompanyName().setText(company.getName());
         holder.getCompanyAddress().setText(company.getAddress());
         holder.getCompanyPhone().setText(company.getPhone());
@@ -56,31 +59,62 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
         return companyList.size();
     }
 
-    /**
-     * Implementation based on https://stackoverflow.com/a/10868126
-     * */
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+    private void loadLogo(Company company, ImageView companyImage) {
+        String logoPath = company.getLogoPath();
+        // Check if the logo exists locally.
+        if (!new File(logoPath).exists()) {
+            /*
+             * If the logo doesn't exist locally, download it, set it to the
+             * image view and reference it in the company
+             */
+            new DownloadImageTask(companyImage, company, context).execute();
+        } else {
+            // Image exists locally, load it and set to the image
+            Bitmap myBitmap = BitmapFactory.decodeFile(logoPath);
+            companyImage.setImageBitmap(myBitmap);
+        }
+    }
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+        Company company;
+        Context context;
+
+        public DownloadImageTask(ImageView imageView, Company company, Context context) {
+            this.imageView = imageView;
+            this.company = company;
+            this.context = context;
         }
 
         protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
+            Bitmap bitmap = null;
             try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                // Download the image as bitmap
+                bitmap = Glide.with(context)
+                        .asBitmap()
+                        .load(company.getLogoPath())
+                        .submit()
+                        .get();
+                // Get the internal path where the image should be downloaded
+                String internalLogoPath = UUID.randomUUID().toString() + ".jpg";
+                ContextWrapper contextWrapper = new ContextWrapper(context.getApplicationContext());
+                File companyLogosDirectory = contextWrapper.getDir(MainActivity.COMPANIES.LOGOS_FOLDER, Context.MODE_PRIVATE);
+                File newLogoPath = new File(companyLogosDirectory, internalLogoPath);
+                // Set to the company for further use
+                company.setLogoPath(newLogoPath.getAbsolutePath());
+                // Save the image to the internal storage
+                FileOutputStream outputStream = new FileOutputStream(newLogoPath);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                outputStream.close();
+            } catch (IOException | ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
-            return mIcon11;
+            return bitmap;
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            // Display the image in the ImageView
+            imageView.setImageBitmap(result);
         }
     }
 }
