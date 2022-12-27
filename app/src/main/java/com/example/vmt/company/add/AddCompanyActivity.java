@@ -3,7 +3,6 @@ package com.example.vmt.company.add;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -12,8 +11,8 @@ import androidx.annotation.Nullable;
 
 import com.example.vmt.MainActivity;
 import com.example.vmt.R;
-import com.example.vmt.listeners.AddCompanyOnClickListener;
-import com.example.vmt.listeners.TransitionButtonOnClickListener;
+import com.example.vmt.listeners.buttonlistener.AddCompanyOnClickListener;
+import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddCompanyActivity extends Activity {
@@ -30,13 +29,13 @@ public class AddCompanyActivity extends Activity {
         int height = displayMetrics.heightPixels;
         getWindow().setLayout(width, height);
 
-        TextView companyNameTextView = findViewById(R.id.companyNameTextInput);
-        TextView companyPhoneTextView = findViewById(R.id.companyPhoneTextInput);
-        TextView companyAddressTextView = findViewById(R.id.companyAddressTextInput);
-        TextView companyLogoPathTextView = findViewById(R.id.companyLogoPath);
-        TextView companySiteTextView = findViewById(R.id.companySiteTextInput);
+        TextView companyNameTextView = findViewById(R.id.addCompanyNameTextInput);
+        TextView companyPhoneTextView = findViewById(R.id.addCompanyPhoneTextInput);
+        TextView companyAddressTextView = findViewById(R.id.addCompanyAddressTextInput);
+        TextView companyLogoPathTextView = findViewById(R.id.addCompanyLogoPath);
+        TextView companySiteTextView = findViewById(R.id.addCompanySiteTextInput);
 
-        Spinner categorySpinner = findViewById(R.id.categoryDropdown);
+        Spinner categorySpinner = findViewById(R.id.addCategoryDropdown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.categories,
@@ -44,11 +43,12 @@ public class AddCompanyActivity extends Activity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         categorySpinner.setAdapter(adapter);
-        Log.i("Selected",categorySpinner.getSelectedItem().toString());
 
         FloatingActionButton addButton = findViewById(R.id.addCompanyConfirm);
         addButton.setOnClickListener(
                 new AddCompanyOnClickListener(
+                    this,
+                    MainActivity.class,
                     companyNameTextView,
                     companyPhoneTextView,
                     companyAddressTextView,

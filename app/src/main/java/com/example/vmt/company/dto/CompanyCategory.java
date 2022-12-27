@@ -3,6 +3,7 @@ package com.example.vmt.company.dto;
 import static com.example.vmt.MainActivity.COMPANIES;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class CompanyCategory {
     }
 
     public JSONObject toJsonObject() throws JSONException {
+        Log.i("Companies hashcode (in)", String.valueOf(companies.hashCode()));
         JSONObject categoryJsonObject = new JSONObject();
         categoryJsonObject.put("categoryName", categoryName);
         JSONArray companiesJsonArray = new JSONArray();
@@ -49,11 +52,12 @@ public class CompanyCategory {
             companiesJsonArray.put(company.toJsonObject());
         }
         categoryJsonObject.put("companies", companiesJsonArray);
+        Log.i("Company category json", categoryJsonObject.toString());
         return categoryJsonObject;
     }
 
     public void displayCompanyCategory(Context context, RecyclerView companyView) {
-        CompanyViewAdapter viewAdapter = new CompanyViewAdapter(context, companies);
+        CompanyViewAdapter viewAdapter = new CompanyViewAdapter(context, this);
         companyView.setAdapter(viewAdapter);
         companyView.setLayoutManager(new LinearLayoutManager(context));
         companyView.addItemDecoration(

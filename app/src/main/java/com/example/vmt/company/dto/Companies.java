@@ -49,7 +49,6 @@ public class Companies {
             return;
         }
         loadCompanies(new JSONObject(companiesJsonString));
-        Log.i("Companies", companiesJsonString);
     }
 
     private void loadCompanies(JSONObject companiesJsonObject) throws JSONException {
@@ -72,4 +71,15 @@ public class Companies {
         throw new IllegalStateException("Cannot find category");
 
     }
+
+    public int getCategoryIndex(String categoryName) {
+        for (int i = 0; i < companyCategories.size(); i++) {
+            CompanyCategory companyCategory = companyCategories.get(i);
+            if (companyCategory.getCategoryName().equals(categoryName)) {
+                return i;
+            }
+        }
+        throw new IllegalStateException("Cannot find category");
+    }
 }
+

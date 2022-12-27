@@ -1,13 +1,16 @@
 package com.example.vmt.listeners;
 
-import android.util.Log;
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.view.View;
 
+import com.example.vmt.company.edit.EditCompanyActivity;
 import com.example.vmt.company.view.CompanyViewHolder;
 
 public class CompanyOnClickListener implements View.OnClickListener {
 
-    CompanyViewHolder holder;
+    private final CompanyViewHolder holder;
 
     public CompanyOnClickListener(CompanyViewHolder holder) {
         this.holder = holder;
@@ -15,6 +18,12 @@ public class CompanyOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Log.i("Click", holder.getCompanyPhone().getText() + " has been clicked");
+        Intent intent = new Intent(view.getContext(), EditCompanyActivity.class);
+        intent.putExtra("category", holder.getCompanyCategory().getCategoryName());
+        intent.putExtra("index", holder.getAdapterPosition());
+        view.getContext().startActivity(
+                intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) view.getContext()).toBundle()
+        );
     }
 }

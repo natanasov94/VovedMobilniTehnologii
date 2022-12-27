@@ -1,14 +1,15 @@
-package com.example.vmt.listeners;
+package com.example.vmt.listeners.buttonlistener;
 
 import static com.example.vmt.MainActivity.COMPANIES;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.vmt.company.dto.Company;
 import com.example.vmt.company.dto.CompanyCategory;
 
-public class AddCompanyOnClickListener implements View.OnClickListener{
+public class AddCompanyOnClickListener extends TransitionButtonOnClickListener {
 
     TextView companyNameTextView;
     TextView companyPhoneTextView;
@@ -18,6 +19,8 @@ public class AddCompanyOnClickListener implements View.OnClickListener{
     Spinner categorySpinner;
 
     public AddCompanyOnClickListener(
+            Activity currentActivity,
+            Class activityToTransitionTo,
             TextView companyNameTextView,
             TextView companyPhoneTextView,
             TextView companyAddressTextView,
@@ -25,6 +28,7 @@ public class AddCompanyOnClickListener implements View.OnClickListener{
             TextView companySiteTextView,
             Spinner categorySpinner
     ) {
+        super(currentActivity, activityToTransitionTo);
         this.companyAddressTextView = companyAddressTextView;
         this.companyNameTextView = companyNameTextView;
         this.companyLogoPathTextView = companyLogoPathTextView;
@@ -42,8 +46,9 @@ public class AddCompanyOnClickListener implements View.OnClickListener{
                 companyPhoneTextView.getText().toString(),
                 companySiteTextView.getText().toString()
         );
-        String selectedCompany = categorySpinner.getSelectedItem().toString();
-        CompanyCategory companyCategory = COMPANIES.getCompanyCategory(selectedCompany);
-        companyCategory.getCompanies().add(company);
+        String selectedCategoryName = categorySpinner.getSelectedItem().toString();
+        CompanyCategory selectedCategory = COMPANIES.getCompanyCategory(selectedCategoryName);
+        selectedCategory.getCompanies().add(company);
+        super.onClick(view);
     }
 }

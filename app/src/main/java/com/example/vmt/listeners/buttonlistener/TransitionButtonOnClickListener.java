@@ -1,4 +1,4 @@
-package com.example.vmt.listeners;
+package com.example.vmt.listeners.buttonlistener;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -12,8 +12,7 @@ public class TransitionButtonOnClickListener implements View.OnClickListener {
     private Activity currentActivity;
     private Class activityToTransitionTo;
 
-    public TransitionButtonOnClickListener(Activity currentActivity, Class activityToTransitionTo
-    ) {
+    public TransitionButtonOnClickListener(Activity currentActivity, Class activityToTransitionTo) {
         this.currentActivity = currentActivity;
         this.activityToTransitionTo = activityToTransitionTo;
     }

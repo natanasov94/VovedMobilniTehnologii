@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/addCompanyLogoPath"
+        android:id="@+id/editCompanyLogoPath"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -24,7 +24,7 @@
         android:layout_marginStart="20dp" />
 
     <EditText
-        android:id="@+id/addCompanyNameTextInput"
+        android:id="@+id/editCompanyNameTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,21 +32,21 @@
         android:hint="Company Name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCompanyLogoPath"
+        app:layout_constraintTop_toBottomOf="@id/editCompanyLogoPath"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp" />
 
     <EditText
-        android:id="@+id/addCompanyAddressTextInput"
+        android:id="@+id/editCompanyAddressTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:hint="Company Address"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCompanyNameTextInput"
+        app:layout_constraintTop_toBottomOf="@id/editCompanyNameTextInput"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
@@ -54,14 +54,14 @@
         android:layout_marginStart="20dp" />
 
     <EditText
-        android:id="@+id/addCompanyPhoneTextInput"
+        android:id="@+id/editCompanyPhoneTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone"
         android:hint="Company Phone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCompanyAddressTextInput"
+        app:layout_constraintTop_toBottomOf="@id/editCompanyAddressTextInput"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
@@ -69,7 +69,7 @@
         android:layout_marginStart="20dp" />
 
     <EditText
-        android:id="@+id/addCompanySiteTextInput"
+        android:id="@+id/editCompanySiteTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -77,19 +77,19 @@
         android:hint="Company Site"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCompanyPhoneTextInput"
+        app:layout_constraintTop_toBottomOf="@id/editCompanyPhoneTextInput"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="20dp" />
 
     <Spinner
-        android:id="@+id/addCategoryDropdown"
+        android:id="@+id/editCategoryDropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCompanySiteTextInput"
+        app:layout_constraintTop_toBottomOf="@id/editCompanySiteTextInput"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -97,7 +97,7 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addCompanyConfirm"
+        android:id="@+id/editCompanyConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -113,7 +113,20 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addCompanyGoBack"
+        android:id="@+id/editDeleteCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:src="@drawable/ic_baseline_remove_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editCompanyGoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vmt.R;
+import com.example.vmt.company.dto.CompanyCategory;
 import com.example.vmt.listeners.CompanyOnClickListener;
 
 public class CompanyViewHolder extends RecyclerView.ViewHolder {
@@ -19,14 +20,19 @@ public class CompanyViewHolder extends RecyclerView.ViewHolder {
     private TextView companyPhone;
     private TextView companySite;
 
-    public CompanyViewHolder(@NonNull View itemView) {
+    private CompanyCategory companyCategory;
+
+    public CompanyViewHolder(@NonNull View itemView, CompanyCategory companyCategory) {
         super(itemView);
+        this.companyCategory = companyCategory;
         this.companyLogo = itemView.findViewById(R.id.companyLogo);
         this.companyName = itemView.findViewById(R.id.companyName);
         this.companyAddress = itemView.findViewById(R.id.companyAddress);
         this.companyPhone = itemView.findViewById(R.id.companyPhone);
         this.companySite = itemView.findViewById(R.id.companySite);
-        itemView.findViewById(R.id.companyViewHolder).setOnClickListener(new CompanyOnClickListener(this));
+        itemView.findViewById(R.id.companyViewHolder).setOnClickListener(
+                new CompanyOnClickListener(this)
+        );
     }
 
     public ImageView getCompanyLogo() {
@@ -47,5 +53,9 @@ public class CompanyViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getCompanySite() {
         return companySite;
+    }
+
+    public CompanyCategory getCompanyCategory() {
+        return companyCategory;
     }
 }

@@ -3,6 +3,8 @@ package com.example.vmt.company.dto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 public class Company {
 
     private String logoPath;
@@ -51,6 +53,22 @@ public class Company {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
     }
 
     public JSONObject toJsonObject() throws JSONException {

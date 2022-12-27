@@ -1,34 +1,23 @@
 package com.example.vmt;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 
 import com.example.vmt.company.dto.Companies;
-import com.example.vmt.company.dto.Company;
 import com.example.vmt.company.add.AddCompanyActivity;
 import com.example.vmt.company.dto.CompanyCategory;
-import com.example.vmt.company.view.CompanyViewAdapter;
 import com.example.vmt.listeners.CategoryOnClickListener;
-import com.example.vmt.listeners.TransitionButtonOnClickListener;
+import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeCompanies() throws JSONException {
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.clear();
-//        editor.apply();
         if (COMPANIES.getCompanyCategories().isEmpty()) {
             // If company categories is empty, load from memory
             COMPANIES.loadFromMemory(sharedPreferences);

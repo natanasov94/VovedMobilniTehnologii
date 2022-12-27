@@ -27,6 +27,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".company.add.AddCompanyActivity"></activity>
+        <activity android:name=".company.edit.EditCompanyActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

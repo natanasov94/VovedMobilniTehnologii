@@ -17,22 +17,22 @@ import com.bumptech.glide.Glide;
 import com.example.vmt.MainActivity;
 import com.example.vmt.R;
 import com.example.vmt.company.dto.Company;
+import com.example.vmt.company.dto.CompanyCategory;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
 
     Context context;
-    private List<Company> companyList;
+    private CompanyCategory companyCategory;
 
-    public CompanyViewAdapter(Context context, List<Company> companyList) {
+    public CompanyViewAdapter(Context context, CompanyCategory companyCategory) {
         this.context = context;
-        this.companyList = companyList;
+        this.companyCategory = companyCategory;
     }
 
     @NonNull
@@ -40,13 +40,13 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
     public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.company, parent, false);
-        return new CompanyViewHolder(view);
+        return new CompanyViewHolder(view, companyCategory);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
-        Company company = companyList.get(position);
+        Company company = companyCategory.getCompanies().get(position);
         loadLogo(company, holder.getCompanyLogo());
         holder.getCompanyName().setText(company.getName());
         holder.getCompanyAddress().setText(company.getAddress());
@@ -56,7 +56,7 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return companyList.size();
+        return companyCategory.getCompanies().size();
     }
 
     private void loadLogo(Company company, ImageView companyImage) {
