@@ -93,6 +93,7 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
                 bitmap = Glide.with(context)
                         .asBitmap()
                         .load(company.getLogoPath())
+                        .placeholder(R.mipmap.ic_launcher)
                         .submit()
                         .get();
                 // Get the internal path where the image should be downloaded
@@ -107,7 +108,9 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 outputStream.close();
             } catch (IOException | ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                // Setting default in case the image isn't loaded from the internet
+                return BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher);
             }
             return bitmap;
         }

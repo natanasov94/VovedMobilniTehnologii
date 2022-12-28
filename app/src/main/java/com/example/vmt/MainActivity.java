@@ -4,33 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.example.vmt.company.dto.Companies;
 import com.example.vmt.company.add.AddCompanyActivity;
-import com.example.vmt.company.dto.CompanyCategory;
 import com.example.vmt.company.fragment.CategoryFragmentAdapter;
 import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String COMPANIES_PREFS = "companiesSharedPrefs";
 
-    public static final Companies COMPANIES = new Companies();
+    public static Companies COMPANIES;
 
     private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences(COMPANIES_PREFS, MODE_PRIVATE);
         try {
@@ -44,20 +47,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeCompanies() throws JSONException {
-        if (COMPANIES.getCompanyCategories().isEmpty()) {
-            // If company categories is empty, load from memory
-            COMPANIES.loadFromMemory(sharedPreferences);
-            // If empty, then create the categories, since there is no previous memory
-            if (COMPANIES.getCompanyCategories().isEmpty()) {
-                List<CompanyCategory> companyCategories = new ArrayList<>();
-                for (String category : getResources().getStringArray(R.array.categories)) {
-                    companyCategories.add(new CompanyCategory(category));
-                }
-                COMPANIES.setCompanyCategories(companyCategories);
+        if (COMPANIES == null) {
+            String companiesJsonString = sharedPreferences.getString("companies", null);
+            if (companiesJsonString == null) {
+                COMPANIES = readCompaniesFromDefault();
+            } else {
+                COMPANIES = new Gson().fromJson(companiesJsonString, Companies.class);
             }
         } else {
             COMPANIES.save(sharedPreferences);
         }
+    }
+
+    private Companies readCompaniesFromDefault() {
+        try (Reader reader = new InputStreamReader(getResources().openRawResource(R.raw.default_companies))) {
+            return new Gson().fromJson(reader, Companies.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalStateException();
     }
 
     private void setSwipingAndCategories() {

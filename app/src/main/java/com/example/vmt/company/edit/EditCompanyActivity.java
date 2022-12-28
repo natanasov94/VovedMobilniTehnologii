@@ -4,6 +4,7 @@ import static com.example.vmt.MainActivity.COMPANIES;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,7 @@ public class EditCompanyActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_company);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;

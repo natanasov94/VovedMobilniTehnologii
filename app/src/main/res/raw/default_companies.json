@@ -1,0 +1,66 @@
+{
+  "companyCategories": [
+    {
+      "categoryName": "Servisi",
+      "companies": [
+        {
+          "logoPath": "https://companieslogo.com/img/orig/GOOG-0ed88f7c.png",
+          "name": "Google",
+          "address": "1600 Amphitheatre Parkway in Mountain View, California",
+          "phone": "(650) 253-0000",
+          "site": "https://google.com"
+        },
+        {
+          "logoPath": "https://m.media-amazon.com/images/G/01/gc/designs/livepreview/amazon_dkblue_noto_email_v2016_us-main._CB468775337_.png",
+          "name": "Amazon",
+          "address": "410 Terry Ave N, Seattle 98109, WA",
+          "phone": "1-206-266-1000",
+          "site": "https://www.amazon.com/"
+        }
+      ]
+    },
+    {
+      "categoryName": "Zabava",
+      "companies": [
+        {
+          "logoPath": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Blizzard_Entertainment_Logo.svg/2560px-Blizzard_Entertainment_Logo.svg.png",
+          "name": "Blizzard Entertainment",
+          "address": "16215 Alton Parkway Irvine, CA 92618",
+          "phone": "800-592-5499",
+          "site": "https://www.blizzard.com/en-us/"
+        },
+        {
+          "logoPath": "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png",
+          "name": "Spofity",
+          "address": "Regeringsgatan 19 SE-111 53 Stockholm Sweden",
+          "phone": "(929) 469-5297",
+          "site": "https://open.spotify.com/"
+        }
+      ]
+    },
+    {
+      "categoryName": "Industrija",
+      "companies": [
+        {
+          "logoPath": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png",
+          "name": "Tesla",
+          "address": "13101 Tesla Road, Austin, Texas, U.S.",
+          "phone": " +1 (781) 575 4238",
+          "site": "https://www.tesla.com/"
+        }
+      ]
+    },
+    {
+      "categoryName": "Edukacija",
+      "companies": [
+        {
+          "logoPath": "https://1000logos.net/wp-content/uploads/2020/10/Duolingo-logo.png",
+          "name": "Duolingo",
+          "address": "5900 Penn Avenue 2nd Floor Pittsburgh, PA 15206",
+          "phone": "+14125676602",
+          "site": "https://open.spotify.com/"
+        }
+      ]
+    }
+  ]
+}
