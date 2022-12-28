@@ -1,7 +1,7 @@
 package com.example.vmt;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,10 +9,11 @@ import android.os.Bundle;
 import com.example.vmt.company.dto.Companies;
 import com.example.vmt.company.add.AddCompanyActivity;
 import com.example.vmt.company.dto.CompanyCategory;
-import com.example.vmt.listeners.CategoryOnClickListener;
+import com.example.vmt.company.fragment.CategoryFragmentAdapter;
 import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.json.JSONException;
 
@@ -27,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
-    private RecyclerView companyView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +38,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        companyView = findViewById(R.id.companyView);
-        setCategoriesTabs();
-        COMPANIES.getCompanyCategories().get(0).displayCompanyCategory(this, companyView);
         FloatingActionButton addCompanyButton = findViewById(R.id.addCompany);
+        setSwipingAndCategories();
         addCompanyButton.setOnClickListener(new TransitionButtonOnClickListener(this, AddCompanyActivity.class));
     }
 
@@ -63,13 +60,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setCategoriesTabs() {
+    private void setSwipingAndCategories() {
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        CategoryFragmentAdapter categoryFragmentAdapter = new CategoryFragmentAdapter(
+                getSupportFragmentManager(),
+                getLifecycle()
+        );
+        viewPager.setAdapter(categoryFragmentAdapter);
         TabLayout categories = findViewById(R.id.categories);
-        for (String category :  getResources().getStringArray(R.array.categories)) {
-            categories.addTab(categories.newTab().setText(category));
-        }
-        categories.selectTab(categories.getTabAt(0));
-        categories.addOnTabSelectedListener(new CategoryOnClickListener(this, companyView));
+        new TabLayoutMediator(categories, viewPager,
+                (tab, position) -> tab.setText(
+                        COMPANIES.getCompanyCategories().get(position).getCategoryName()
+                )
+        ).attach();
     }
 
 }
