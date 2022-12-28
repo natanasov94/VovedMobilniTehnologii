@@ -25,37 +25,35 @@ import java.io.Reader;
 public class MainActivity extends AppCompatActivity {
 
     public static final String COMPANIES_PREFS = "companiesSharedPrefs";
+    public static final String COMPANIES_KEY = "companies";
 
     public static Companies COMPANIES;
-
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        sharedPreferences = getSharedPreferences(COMPANIES_PREFS, MODE_PRIVATE);
-        try {
-            initializeCompanies();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        initializeCompanies();
         FloatingActionButton addCompanyButton = findViewById(R.id.addCompany);
         setSwipingAndCategories();
         addCompanyButton.setOnClickListener(new TransitionButtonOnClickListener(this, AddCompanyActivity.class));
     }
 
-    private void initializeCompanies() throws JSONException {
+    private void initializeCompanies() {
+        Gson gson = new Gson();
+        SharedPreferences sharedPreferences = getSharedPreferences(COMPANIES_PREFS, MODE_PRIVATE);
         if (COMPANIES == null) {
-            String companiesJsonString = sharedPreferences.getString("companies", null);
+            String companiesJsonString = sharedPreferences.getString(COMPANIES_KEY, null);
             if (companiesJsonString == null) {
                 COMPANIES = readCompaniesFromDefault();
             } else {
-                COMPANIES = new Gson().fromJson(companiesJsonString, Companies.class);
+                COMPANIES = gson.fromJson(companiesJsonString, Companies.class);
             }
         } else {
-            COMPANIES.save(sharedPreferences);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(COMPANIES_KEY, gson.toJson(COMPANIES));
+            editor.apply();
         }
     }
 
