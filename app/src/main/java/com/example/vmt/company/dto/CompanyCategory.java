@@ -15,7 +15,12 @@ public class CompanyCategory {
     private String categoryName;
     private List<Company> companies;
 
-    public void displayCompanyCategory(Context context, RecyclerView companyView) {
+    public void display(Context context, RecyclerView companyView) {
+        /*
+        * Initializes the CompanyViewAdapter and passed in itself to display the companies
+        * associated with it. The CompanyViewAdapter is passed to the RecyclerView which will
+        * hold the view for the companies
+        * */
         CompanyViewAdapter viewAdapter = new CompanyViewAdapter(context, this);
         companyView.setAdapter(viewAdapter);
         companyView.setLayoutManager(new LinearLayoutManager(context));

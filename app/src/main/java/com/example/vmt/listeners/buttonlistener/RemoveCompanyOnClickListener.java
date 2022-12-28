@@ -1,11 +1,13 @@
 package com.example.vmt.listeners.buttonlistener;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 
 import com.example.vmt.company.dto.CompanyCategory;
 
+/**
+ * Listener to remove a company from a category
+ * */
 public class RemoveCompanyOnClickListener extends TransitionButtonOnClickListener {
 
     private final CompanyCategory companyCategory;
@@ -18,10 +20,9 @@ public class RemoveCompanyOnClickListener extends TransitionButtonOnClickListene
     }
     @Override
     public void onClick(View view) {
-        Log.i("Companies hashcode (ou)", String.valueOf(companyCategory.getCompanies().hashCode()));
-        Log.i("Before", companyCategory.getCompanies().toString());
+        // Remove company from category
         companyCategory.getCompanies().remove(index);
-        Log.i("After", companyCategory.getCompanies().toString());
+        // Transition to MainActivity
         super.onClick(view);
     }
 }

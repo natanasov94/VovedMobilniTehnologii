@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.example.vmt.company.dto.Company;
 import com.example.vmt.company.dto.CompanyCategory;
 
+/**
+ * Listeners used to add new companies to a category
+ * */
 public class AddCompanyOnClickListener extends TransitionButtonOnClickListener {
 
     TextView companyNameTextView;
@@ -39,6 +42,7 @@ public class AddCompanyOnClickListener extends TransitionButtonOnClickListener {
 
     @Override
     public void onClick(View view) {
+        // Create new company
         Company company = new Company(
                 companyLogoPathTextView.getText().toString(),
                 companyNameTextView.getText().toString(),
@@ -46,9 +50,11 @@ public class AddCompanyOnClickListener extends TransitionButtonOnClickListener {
                 companyPhoneTextView.getText().toString(),
                 companySiteTextView.getText().toString()
         );
+        // Locate selected category and add the new company there
         String selectedCategoryName = categorySpinner.getSelectedItem().toString();
         CompanyCategory selectedCategory = COMPANIES.getCompanyCategory(selectedCategoryName);
         selectedCategory.getCompanies().add(company);
+        // Transition to MainActivity
         super.onClick(view);
     }
 }

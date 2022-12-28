@@ -22,6 +22,9 @@ import com.example.vmt.listeners.buttonlistener.RemoveCompanyOnClickListener;
 import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+/**
+ * Activity used to edit existing companies
+ * */
 public class EditCompanyActivity extends Activity {
 
     @Override
@@ -43,7 +46,7 @@ public class EditCompanyActivity extends Activity {
         int index = intent.getExtras().getInt("index");
         Company company = companyCategory.getCompanies().get(index);
 
-        // Getting views
+        // Getting views and setting categories dropdown
         TextView companyNameTextView = findViewById(R.id.editCompanyNameTextInput);
         TextView companyPhoneTextView = findViewById(R.id.editCompanyPhoneTextInput);
         TextView companyAddressTextView = findViewById(R.id.editCompanyAddressTextInput);
@@ -78,6 +81,12 @@ public class EditCompanyActivity extends Activity {
                 companyCategory,
                 index
         ));
+        /*
+        * The views are passed to the listener instead of the text
+        * values since the values will not have been set when the
+        * listener is created, so it needs to extract the latest
+        * text value from them
+        * */
         confirmButton.setOnClickListener(new EditCompanyOnClickListener(
                 this,
                 MainActivity.class,

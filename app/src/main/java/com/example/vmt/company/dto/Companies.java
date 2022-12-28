@@ -3,6 +3,9 @@ package com.example.vmt.company.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the root of the companies structure
+ * */
 public class Companies {
 
     public final String LOGOS_FOLDER = "companyLogos";

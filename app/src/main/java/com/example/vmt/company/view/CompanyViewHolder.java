@@ -1,6 +1,5 @@
 package com.example.vmt.company.view;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,15 +11,18 @@ import com.example.vmt.R;
 import com.example.vmt.company.dto.CompanyCategory;
 import com.example.vmt.listeners.CompanyOnClickListener;
 
+/**
+ * Represents a single company card (element)
+ * */
 public class CompanyViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView companyLogo;
-    private TextView companyName;
-    private TextView companyAddress;
-    private TextView companyPhone;
-    private TextView companySite;
+    private final ImageView companyLogo;
+    private final TextView companyName;
+    private final TextView companyAddress;
+    private final TextView companyPhone;
+    private final TextView companySite;
 
-    private CompanyCategory companyCategory;
+    private final CompanyCategory companyCategory;
 
     public CompanyViewHolder(@NonNull View itemView, CompanyCategory companyCategory) {
         super(itemView);
@@ -30,6 +32,7 @@ public class CompanyViewHolder extends RecyclerView.ViewHolder {
         this.companyAddress = itemView.findViewById(R.id.companyAddress);
         this.companyPhone = itemView.findViewById(R.id.companyPhone);
         this.companySite = itemView.findViewById(R.id.companySite);
+        // Add listener to be able to edit the company
         itemView.findViewById(R.id.companyViewHolder).setOnClickListener(
                 new CompanyOnClickListener(this)
         );

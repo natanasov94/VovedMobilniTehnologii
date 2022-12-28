@@ -13,23 +13,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vmt.R;
 import com.example.vmt.company.dto.CompanyCategory;
 
-public class CompanyFragment extends Fragment {
+/**
+ * Represents a single category page
+ * */
+public class CategoryFragment extends Fragment {
 
     CompanyCategory companyCategory;
 
-    public CompanyFragment(CompanyCategory companyCategory) {
+    public CategoryFragment(CompanyCategory companyCategory) {
         this.companyCategory = companyCategory;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate (display) category page
         return inflater.inflate(R.layout.fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // Display all companies that are part of the category
         RecyclerView companyView = view.findViewById(R.id.companyView);
-        companyCategory.displayCompanyCategory(getContext(), companyView);
+        companyCategory.display(getContext(), companyView);
     }
 }

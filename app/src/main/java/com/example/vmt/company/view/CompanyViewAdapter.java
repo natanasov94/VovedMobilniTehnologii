@@ -25,10 +25,14 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Used to create and display the {@link CompanyViewHolder} for the companies
+ * from a category and sets the values for all views within each element
+ * */
 public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
 
-    Context context;
-    private CompanyCategory companyCategory;
+    private final Context context;
+    private final CompanyCategory companyCategory;
 
     public CompanyViewAdapter(Context context, CompanyCategory companyCategory) {
         this.context = context;
@@ -39,6 +43,7 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
     @Override
     public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
+        // Inflate (display) company element (using the layout "company")
         View view = inflater.inflate(R.layout.company, parent, false);
         return new CompanyViewHolder(view, companyCategory);
     }
@@ -46,6 +51,10 @@ public class CompanyViewAdapter extends RecyclerView.Adapter<CompanyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
+        /*
+         * Reads the fields from the company object (to be displayed)
+         * and sets them to the views
+         */
         Company company = companyCategory.getCompanies().get(position);
         loadLogo(company, holder.getCompanyLogo());
         holder.getCompanyName().setText(company.getName());

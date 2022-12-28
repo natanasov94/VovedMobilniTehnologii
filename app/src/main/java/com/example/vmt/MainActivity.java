@@ -16,8 +16,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -35,28 +33,40 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         initializeCompanies();
-        FloatingActionButton addCompanyButton = findViewById(R.id.addCompany);
         setSwipingAndCategories();
+        // Add listener to switch to AddCompanyActivity
+        FloatingActionButton addCompanyButton = findViewById(R.id.addCompany);
         addCompanyButton.setOnClickListener(new TransitionButtonOnClickListener(this, AddCompanyActivity.class));
     }
 
+    /**
+     * Called every time the main activity is loaded to save or load the companies
+     * that should be displayed
+     * */
     private void initializeCompanies() {
         Gson gson = new Gson();
         SharedPreferences sharedPreferences = getSharedPreferences(COMPANIES_PREFS, MODE_PRIVATE);
         if (COMPANIES == null) {
+            // Companies have not yet been initialized (this is first start of app)
             String companiesJsonString = sharedPreferences.getString(COMPANIES_KEY, null);
             if (companiesJsonString == null) {
+                // There are no in memory companies, load the default ones
                 COMPANIES = readCompaniesFromDefault();
             } else {
+                // Load the in memory companies
                 COMPANIES = gson.fromJson(companiesJsonString, Companies.class);
             }
         } else {
+            // Save current state of companies to memory
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(COMPANIES_KEY, gson.toJson(COMPANIES));
             editor.apply();
         }
     }
 
+    /**
+     * Load the default companies from a json file
+     * */
     private Companies readCompaniesFromDefault() {
         try (Reader reader = new InputStreamReader(getResources().openRawResource(R.raw.default_companies))) {
             return new Gson().fromJson(reader, Companies.class);
@@ -66,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         throw new IllegalStateException();
     }
 
+    /**
+     * Setup tabLayout with categories and view pager for swiping
+     * */
     private void setSwipingAndCategories() {
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         CategoryFragmentAdapter categoryFragmentAdapter = new CategoryFragmentAdapter(

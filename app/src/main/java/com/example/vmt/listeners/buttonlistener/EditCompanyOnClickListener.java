@@ -10,6 +10,9 @@ import android.widget.TextView;
 import com.example.vmt.company.dto.Company;
 import com.example.vmt.company.dto.CompanyCategory;
 
+/**
+ * Listeners used to set new values to a company
+ * */
 public class EditCompanyOnClickListener extends TransitionButtonOnClickListener {
     private TextView companyNameTextView;
     private TextView companyPhoneTextView;
@@ -52,13 +55,18 @@ public class EditCompanyOnClickListener extends TransitionButtonOnClickListener 
         company.setAddress(companyAddressTextView.getText().toString());
         company.setPhone(companyPhoneTextView.getText().toString());
         company.setSite(companySiteTextView.getText().toString());
-        // Check if selected category is
+        /*
+         * Check if selected category is the company's current one.
+         * If not, change it by removing it from the existing one and
+         * add it to the new one
+         */
         String selectedCategoryName = categorySpinner.getSelectedItem().toString();
         CompanyCategory selectedCategory = COMPANIES.getCompanyCategory(selectedCategoryName);
         if (currentCategory != selectedCategory) {
             currentCategory.getCompanies().remove(index);
             selectedCategory.getCompanies().add(company);
         }
+        // Transition to MainActivity
         super.onClick(view);
     }
 }

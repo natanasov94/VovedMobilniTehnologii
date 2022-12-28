@@ -15,10 +15,10 @@ import com.example.vmt.R;
 import com.example.vmt.listeners.buttonlistener.AddCompanyOnClickListener;
 import com.example.vmt.listeners.buttonlistener.TransitionButtonOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+/**
+ * Activity used to add new companies
+ * */
 public class AddCompanyActivity extends Activity {
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class AddCompanyActivity extends Activity {
         int height = displayMetrics.heightPixels;
         getWindow().setLayout(width, height);
 
+        // Getting views and setting categories dropdown
         TextView companyNameTextView = findViewById(R.id.addCompanyNameTextInput);
         TextView companyPhoneTextView = findViewById(R.id.addCompanyPhoneTextInput);
         TextView companyAddressTextView = findViewById(R.id.addCompanyAddressTextInput);
@@ -46,7 +47,14 @@ public class AddCompanyActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         categorySpinner.setAdapter(adapter);
 
+        // Set listeners for buttons
         FloatingActionButton addButton = findViewById(R.id.addCompanyConfirm);
+        /*
+         * The views are passed to the listener instead of the text
+         * values since the values will not have been set when the
+         * listener is created, so it needs to extract the latest
+         * text value from them
+         * */
         addButton.setOnClickListener(
                 new AddCompanyOnClickListener(
                     this,
