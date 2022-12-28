@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VMT</string>
+    <string name="app_name">What was that company?</string>
     <string-array name="categories">
         <item>Servisi</item>
         <item>Zabava</item>
